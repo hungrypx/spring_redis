@@ -15,7 +15,7 @@ public class RedisController {
     public  String  Create()
     {
         String key = "hgy";
-        HashMap<String,String> kv = new HashMap<String,String>();
+        HashMap<String,String> kv = new HashMap<>();
         kv.put("age","30");
         kv.put("name","hungry");
         kv.put("gender","male");
@@ -33,7 +33,7 @@ public class RedisController {
     public  String Get()
     {
         String key = "hgy";
-        HashSet<String> names = new HashSet<String>();
+        HashSet<String> names = new HashSet<>();
         names.add("name");
         names.add("gender");
         names.add("address");
@@ -42,10 +42,10 @@ public class RedisController {
     }
     private  String GetHashMap(String key , HashSet<String> names)
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String name : names)
         {
-            sb.append(name).append(":").append(redis.hmGet(key,name));
+            sb.append(name).append(":").append(redis.hmGet(key,name)).append(" ");
         }
         return sb.toString();
     }
