@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.hungry.spring.redis")
-public class SprintBootApp {
+public class SpringBootApp {
     public static void main(String[] args) {
-        SpringApplication.run(SprintBootApp.class, args);
+        SpringApplication.run(SpringBootApp.class, args);
     }
 }

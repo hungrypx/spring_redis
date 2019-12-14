@@ -6,12 +6,12 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Description
- * @Author YaoQi
- * @Date 2018/3/14 16:42
+  @Description
+  @Author hungry
+  @Date 2019-12-14
  */
 @Service
-public class RedisService {
+public class RedisService implements IRedisOper {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
@@ -103,7 +103,7 @@ public class RedisService {
      */
     public Object get(final String key) {
         Object result = null;
-        redisTemplate.opsForValue().get(key);
+        result = redisTemplate.opsForValue().get(key);
         return result;
     }
 
@@ -114,9 +114,15 @@ public class RedisService {
      * @param hashKey
      * @param value
      */
-    public void hmSet(String key, String hashKey, String value) {
-        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
-        hash.put(key, hashKey, value);
+    public boolean hSet(String key, String hashKey, String value) {
+        try {
+            HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
+            hash.put(key, hashKey, value);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+
     }
 
     /**
@@ -126,20 +132,9 @@ public class RedisService {
      * @param hashKey
      * @return
      */
-    public Object hmGet(String key, Object hashKey) {
+    public Object hGet(String key, Object hashKey) {
         HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
         return hash.get(key, hashKey);
-    }
-
-    /**
-     * 列表添加
-     *
-     * @param k
-     * @param v
-     */
-    public void lPush(String k, String v) {
-        ListOperations<String, String> list = redisTemplate.opsForList();
-        list.rightPush(k, v);
     }
 
     /**
